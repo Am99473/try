@@ -1,23 +1,26 @@
-import os
+import selenium
 from selenium import webdriver
-import os
-
 import streamlit as st
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.by import By
 
-options = Options()
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--disable-gpu")
-options.add_argument("--disable-features=NetworkService")
-options.add_argument("--window-size=1920x1080")
-options.add_argument("--disable-features=VizDisplayCompositor")
+# Set the path to the ChromeDriver executable
+chrome_driver_path = 'C:/ChromeDriver/chromedriver_win32/chromedriver'
 
-st.write('MY NAME IS AMAN TIWARI')
-driver = webdriver.Chrome(options=options)
-driver.get("http://www.python.org")
-st.write(driver.title)
+# Configure Chrome to run in headless mode
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')  # Enable headless mode
+chrome_options.add_argument('--disable-gpu')  # Disable GPU acceleration (may be necessary in some cases)
+
+# Create a WebDriver instance with the Chrome options
+driver = webdriver.Chrome( options=chrome_options)
+
+driver.get('https://www.youtube.com/')
+
+# Extract information from the web page
+page_title = driver.title
+page_source = driver.page_source
+st.write('my result is : ')
+st.write(page_title)
+print(page_title)
+
+# Close the WebDriver when done
+driver.quit()
